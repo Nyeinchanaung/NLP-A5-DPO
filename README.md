@@ -2,8 +2,11 @@
 ### NLP Assignment 5: Optimization Human Preference
 #### AT82.05 Artificial Intelligence: Natural Language Understanding (NLU)
 
-## GitHubLink:
+## GitHub Link:
 - https://github.com/Nyeinchanaung/NLP-A5-DPO 
+
+## HuggingFace Model Link:
+- https://huggingface.co/nyeinchanaung/a5_dpo_qwen2 
 
 ## Content
 - [Student Information](#student-information)

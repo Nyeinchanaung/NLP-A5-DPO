@@ -177,3 +177,4 @@ models/
 nca-test/
 gwan2-model/
 logs/
+.DS_Store

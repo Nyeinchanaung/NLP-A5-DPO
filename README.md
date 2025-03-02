@@ -64,7 +64,7 @@ These hyperparameters configure a small-scale fine-tuning run for a language mod
 ## Evaluation
 Below is a summary evaluation and key findings based on your model training results for `Qwen2-0.5B-Instruct` with DPO on the `Dahoas/full-hh-rlhf` dataset over 3 epochs. The hyperparameters you provided (batch_size=1, epochs=3, beta=1, etc.) and the training configuration (e.g., small sequence lengths, BF16 on Colab T4) shaped these outcomes.
 ### Result
-Epoch | Training Loss| Validation Loss| Rewards/chosen| Rewards/rejected | Rewards/accuracies |	Rewards/margins	Logps/chosen |	Logps/rejected	| Logits/chosen	| Logits/rejected
+| Epoch | Training Loss| Validation Loss| Rewards/chosen| Rewards/rejected | Rewards/accuracies |	Rewards/margins |	Logps/chosen |	Logps/rejected	| Logits/chosen	| Logits/rejected
 |-|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|
 1| 	0.860300 |	1.569590 |	-7.679708 |	-9.407799 |	0.605200 |	1.728091 |	-258.907196 |	-264.432648 |	-3.329081 |	-3.418106 |
 2| 	0.004500 |	1.794171 |	-10.204892 |	-11.895986 |	0.597200 |	1.691094 |	-284.159027 |	-289.314514 |	-3.410443 |	-3.445873 |

@@ -32,7 +32,7 @@
  - Open the project
  - Open the `app` folder
  - `streamlit run app.py`
- - app should be up and run on `http://localhost:8501/`
+ - app should be up and running on `http://localhost:8501/`
 
 ## Dataset
 The `Dahoas/full-hh-rlhf` dataset is an excellent choice for training your model with Direct Preference Optimization (DPO) because it provides a comprehensive, high-quality collection of human preference data specifically curated for reinforcement learning from human feedback (RLHF), which aligns closely with DPO’s objectives.
@@ -70,29 +70,28 @@ Below is a summary evaluation and key findings based on your model training resu
 2| 	0.004500 |	1.794171 |	-10.204892 |	-11.895986 |	0.597200 |	1.691094 |	-284.159027 |	-289.314514 |	-3.410443 |	-3.445873 |
 3| 	0.001300 |	1.879734 |	-10.987583 |	-12.683572 |	0.594000 |	1.695989 |	-291.985962 |	-297.190338	 | -3.384251 |	-3.411056 |
 
-### WandD.ai Result
-![Webapp1](r1.png)
-The training plot for train/rewards/margins shows the margin between rewards for "chosen" and "rejected" responses over ~14,000 global steps, corresponding to 3 epochs with a batch size of 1. The margins generally fluctuate between 0 and 20, with a rising trend early on (up to ~6,000 steps), stabilizing around 10-15 after ~8,000 steps. This indicates the model initially learns to distinguish preferences effectively, but the noisy, high variance suggests instability, possibly due to the small batch size or high beta=1, limiting further improvement. The stability post-8,000 steps aligns with your epoch 2-3 metrics, but the variability highlights potential overfitting or data noise.
-
 #### Key Observations:
 The training completed successfully across 3 epochs, indicating the memory optimizations (batch size 1, max_length=16) and dataset cleaning were effective. The model shows significant improvement in training loss, but validation loss increased, suggesting overfitting. Rewards and accuracy metrics indicate moderate success in preference learning, though performance stabilized rather than improved after epoch 1.
-
 - Training Loss: Dropped sharply from 0.8603 (epoch 1) to 0.0013 (epoch 3), showing the model learned to minimize the DPO loss on the training set effectively.
 - Validation Loss: Rose from 1.5696 (epoch 1) to 1.8797 (epoch 3), a about 20% increase, indicating overfitting—generalization to unseen data worsened over time.
 - Rewards/accuracies: Started at 0.6052 (60.52%) and slightly declined to 0.5940 (59.40%), suggesting the model correctly prefers "chosen" over "rejected" ~60% of the time, with no significant improvement after epoch 1.
 - Rewards/margins: Remained stable about (1.69-1.73), showing a consistent but modest preference for "chosen" responses across epochs.
+
+### WandD.ai Result
+![Webapp1](r1.png)
+The training plot for train/rewards/margins shows the margin between rewards for "chosen" and "rejected" responses over ~14,000 global steps, corresponding to 3 epochs with a batch size of 1. The margins generally fluctuate between 0 and 20, with a rising trend early on (up to ~6,000 steps), stabilizing around 10-15 after ~8,000 steps. This indicates the model initially learns to distinguish preferences effectively, but the noisy, high variance suggests instability, possibly due to the small batch size or high beta=1, limiting further improvement. The stability post-8,000 steps aligns with your epoch 2-3 metrics, but the variability highlights potential overfitting or data noise.
 
 #### Conclusion
 The training achieved a functional model with ~60% preference accuracy, but overfitting and limited improvement beyond epoch 1 highlight areas for refinement.
 
 ## Application
 ### Application Development
-The web application is built using `Streamlit`, a Python framework for creating interactive web apps. This Streamlit app serves as a practical extension of the model training process, bridging the gap between theoretical fine-tuning and real-world usability.
+The web application uses `Streamlit`, a Python framework for creating interactive web apps. This Streamlit app serves as a practical extension of the model training process, bridging the gap between theoretical fine-tuning and real-world usability.
 
 ### How to use web app
 The application likely provides a user interface where users can:
 1) User enters a prompt.
-2) The model, embedded in the web app, will tokenizes, encodes, and generates the response.
+2) The model, embedded in the web app, tokenizes, encodes, and generates the response.
 3) Pretrained model from Hugging Face: https://huggingface.co/nyeinchanaung/a5_dpo_qwen2 
 
 ### Screenshots

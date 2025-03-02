@@ -74,8 +74,12 @@ import streamlit as st
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 
+import time
+import numpy as np
+import pandas as pd
+
 # Streamlit app setup
-st.title("DPO Model Web App")
+st.title("A5: Optimization Human Preference")
 st.write("Enter a prompt to get a response from my DPO-trained model.")
 
 # Cache model and tokenizer
@@ -92,8 +96,9 @@ def load_model_and_tokenizer(repo_id):
         return None, None, None
 
 # Replace with your Hugging Face repo ID
-repo_id = "nyeinchanaung/a5_dpo_model"  # Update this!
+repo_id = "nyeinchanaung/a5_dpo_qwen2"  # Update this!
 model, tokenizer, device = load_model_and_tokenizer(repo_id)
+st.markdown(f"Model: [https://huggingface.co/{repo_id}](https://huggingface.co/{repo_id})")
 
 # Generation function
 def generate_response(prompt, max_new_tokens=32):  # Use max_new_tokens instead
@@ -132,17 +137,29 @@ def generate_response(prompt, max_new_tokens=32):  # Use max_new_tokens instead
     except Exception as e:
         return f"Error: {str(e)}"
 
-# User input
-prompt = st.text_input("Enter your prompt:", "Hello, how are you?")
-if st.button("Generate Response"):
-    if not prompt.strip():
-        st.warning("Please enter a prompt!")
-    else:
-        with st.spinner("Generating..."):
-            response = generate_response(prompt)
-            st.subheader("Response:")
-            st.write(response)
+def stream_data():
+    for word in response.split(" "):
+        yield word + " "
+        time.sleep(0.08)
 
-# Footer
-st.markdown("---")
-st.write(f"Model: [https://huggingface.co/{repo_id}](https://huggingface.co/{repo_id})")
+# User input
+#prompt = st.chat_input("Enter your prompt:", )
+
+with st.container(border=True):
+    prompt = st.chat_input("Say something")
+    if prompt:
+        st.write(f"Generate Response: {prompt}")
+        #if st.button("Generate Response"):
+        if not prompt.strip():
+            st.warning("Please enter a prompt!")
+        else:
+            with st.spinner("Generating..."):
+                response = generate_response(prompt)
+                st.subheader("Response:")
+                st.write_stream(stream_data)
+            #st.dialog("You can adjust the response length by changing the 'max_new_tokens' parameter in the code.")
+
+with st.container():
+    st.markdown("---")
+    # footer
+    st.write("Built with ❤️ using Streamlit and Hugging Face Transformers") 

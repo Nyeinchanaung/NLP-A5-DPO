@@ -175,3 +175,5 @@ test/
 wandb/
 models/
 nca-test/
+gwan2-model/
+logs/
